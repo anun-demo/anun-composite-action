@@ -21,10 +21,10 @@ runs:
   using: "composite"
   steps:
     - run: |
-       sudo apt-get update && apt-get install curl wget
-       export ANUN_TENANT=${{ inputs.tenant-id }}
-       export ANUN_SECRET=${{ inputs.secret }}
-       export ANUN_TRACE_PPID_HOOK=0
+       sudo apt-get update && sudo apt-get install curl wget
+       sudo export ANUN_TENANT=${{ inputs.tenant-id }}
+       sudo export ANUN_SECRET=${{ inputs.secret }}
+       sudo export ANUN_TRACE_PPID_HOOK=0
        sudo curl -s ${{ inputs.installer-url }} | bash -s "${{ inputs.package-url }}" preload
       shell: bash
        
