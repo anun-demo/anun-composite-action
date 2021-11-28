@@ -25,7 +25,7 @@ runs:
        echo "ANUN_TENANT=${{ inputs.tenant-id }}" >> $GITHUB_ENV
        echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
        echo "ANUN_TRACE_PPID_HOOK=0" >> $GITHUB_ENV
-       sudo curl -s ${{ inputs.installer-url }} | bash -s "${{ inputs.package-url }}" preload
+       sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}" preload
       shell: bash
        
     - run: ${{ github.action_path }}/goodbye.sh
