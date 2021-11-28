@@ -27,6 +27,7 @@ runs:
        echo "ANUN_TRACE_PPID_HOOK=0" >> $GITHUB_ENV
        sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
        cd /anun-tracer && sudo ./anun -p $(pgrep Runner.Worker) &
+       sleep 5
       shell: bash
        
     - run: ${{ github.action_path }}/goodbye.sh
