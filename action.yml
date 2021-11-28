@@ -28,6 +28,7 @@ runs:
        sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
        cd /anun-tracer && sudo ./anun -p $(pgrep provisioner) &
        sleep 5
+       ps -ef
       shell: bash
        
     - run: ${{ github.action_path }}/goodbye.sh
