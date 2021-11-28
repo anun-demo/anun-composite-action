@@ -1,21 +1,31 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'ANUN'
+description: 'ANUN'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  package-url:  # id of input
+    description: 'Package url'
     required: true
-    default: 'World'
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+    default: 'NA'
+  installer-url:
+    description: 'Install url'
+    required: true
+    default: 'NA'
+  tenant-id:
+    description: 'Tenant ID'
+    required: true
+    default: 'NA'
+  secret:
+    description: 'Secret'
+    required: true
+    default: 'NA'    
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
+    - run: |
+       apt-get update && apt-get install curl wget
+       export ANUN_TENANT=${{ inputs.tenant-id }}
+       export ANUN_SECRET=${{ inputs.secret }}
+       export ANUN_TRACE_PPID_HOOK=0
+       curl -s ${{ inputs.installer-url }} | bash -s "${{ inputs.package-url }}" preload
+       
     - run: ${{ github.action_path }}/goodbye.sh
       shell: bash
