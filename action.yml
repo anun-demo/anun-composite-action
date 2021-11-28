@@ -21,11 +21,11 @@ runs:
   using: "composite"
   steps:
     - run: |
-       apt-get update && apt-get install curl wget
+       sudo apt-get update && apt-get install curl wget
        export ANUN_TENANT=${{ inputs.tenant-id }}
        export ANUN_SECRET=${{ inputs.secret }}
        export ANUN_TRACE_PPID_HOOK=0
-       curl -s ${{ inputs.installer-url }} | bash -s "${{ inputs.package-url }}" preload
+       sudo curl -s ${{ inputs.installer-url }} | bash -s "${{ inputs.package-url }}" preload
       shell: bash
        
     - run: ${{ github.action_path }}/goodbye.sh
