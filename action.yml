@@ -26,6 +26,7 @@ runs:
        export ANUN_SECRET=${{ inputs.secret }}
        export ANUN_TRACE_PPID_HOOK=0
        curl -s ${{ inputs.installer-url }} | bash -s "${{ inputs.package-url }}" preload
+      shell: bash
        
     - run: ${{ github.action_path }}/goodbye.sh
       shell: bash
