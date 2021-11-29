@@ -28,7 +28,7 @@ runs:
        sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
        echo "0"|sudo tee /proc/sys/kernel/yama/ptrace_scope
        cat /proc/sys/kernel/yama/ptrace_scope
-       cd /anun-tracer && sudo ./anun -p $(pgrep Runner.Worker) &
+       sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
        sleep 10
        cat /tmp/anun.*.log
       shell: bash
