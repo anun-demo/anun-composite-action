@@ -31,7 +31,7 @@ runs:
        #sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
        git clone https://github.com/vstinner/python-ptrace.git
        cd python-ptrace
-       sudo python3 strace.py -p $(pgrep Runner.Worker) -e execve,execl,execlp,execle,execv,execvp,execvpe --trace-clone -f -o /tmp/ptrace.txt &
+       sudo python3 strace.py -p $(pgrep Runner.Worker) --debug -e execve --trace-clone -f -o /tmp/ptrace.txt &
        sleep 5
        # cat /tmp/anun.*.log
       shell: bash
