@@ -29,7 +29,10 @@ runs:
        #sudo strace -e clone,fork,execve -f -p $(pgrep Runner.Worker) -o /tmp/strace.txt &
        #sudo strace -e trace=ptrace -o /tmp/strace.txt strace -f -s99999 -e trace=clone,execve -p $(pgrep Runner.Worker) &
        #sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
-       #sleep 5
+       git clone https://github.com/vstinner/python-ptrace.git
+       cd python-ptrace
+       sudo python3 strace.py -p $(pgrep Runner.Worker) -e execve --trace-clone -f -o /tmp/ptrace.txt &
+       sleep 5
        # cat /tmp/anun.*.log
       shell: bash
        
