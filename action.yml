@@ -16,7 +16,11 @@ inputs:
   secret:
     description: 'Secret'
     required: true
-    default: 'NA'    
+    default: 'NA'
+  host:
+    description: 'ANUN host'
+    required: false
+    default: 'api.anun-dev.cloud'
 runs:
   using: "composite"
   steps:
@@ -24,14 +28,10 @@ runs:
        sudo apt-get update && sudo apt-get install curl wget strace
        echo "ANUN_TENANT=${{ inputs.tenant-id }}" >> $GITHUB_ENV
        echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
-       echo "ANUN_TRACE_PPID_HOOK=0" >> $GITHUB_ENV
+       echo "ANUN_SOURCE=github" >> $GITHUB_ENV
+       echo "ANUN_HOST=${{ inputs.host }}" >> $GITHUB_ENV
        sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
-       #sudo strace -e clone,fork,execve -f -p $(pgrep Runner.Worker) -o /tmp/strace.txt &
-       #sudo strace -e trace=ptrace -o /tmp/strace.txt strace -f -s99999 -e trace=clone,execve -p $(pgrep Runner.Worker) &
        sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
        sleep 5
-       # cat /tmp/anun.*.log
       shell: bash
        
-    - run: ${{ github.action_path }}/goodbye.sh
-      shell: bash
