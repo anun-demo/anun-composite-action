@@ -25,9 +25,10 @@ runs:
        echo "ANUN_TENANT=${{ inputs.tenant-id }}" >> $GITHUB_ENV
        echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
        echo "ANUN_TRACE_PPID_HOOK=0" >> $GITHUB_ENV
-       sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
+       #sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
        #sudo strace -e clone,fork,execve -f -p $(pgrep Runner.Worker) -o /tmp/strace.txt &
-       sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
+       sudo strace -e trace=ptrace strace -f -s99999 -e trace=clone,execve -o /tmp/strace.txt -p $(pgrep Runner.Worker) &
+       #sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
        sleep 5
        # cat /tmp/anun.*.log
       shell: bash
