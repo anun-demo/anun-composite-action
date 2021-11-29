@@ -29,6 +29,7 @@ runs:
        echo "0"|sudo tee /proc/sys/kernel/yama/ptrace_scope
        cat /proc/sys/kernel/yama/ptrace_scope
        cd /anun-tracer && sudo ./anun -p $(pgrep Runner.Worker) &
+       cd /anun-tracer && sudo ./anun -p $(pgrep Runner.Listener) &
        sleep 10
        ls -al /tmp
        ps -ef
