@@ -30,8 +30,7 @@ runs:
        cat /proc/sys/kernel/yama/ptrace_scope
        cd /anun-tracer && sudo ./anun -p $(pgrep Runner.Worker) &
        sleep 10
-       ls -al /tmp
-       ps -ef
+       cat /tmp/anun.*.log
       shell: bash
        
     - run: ${{ github.action_path }}/goodbye.sh
