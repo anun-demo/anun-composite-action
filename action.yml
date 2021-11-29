@@ -26,7 +26,7 @@ runs:
        echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
        echo "ANUN_TRACE_PPID_HOOK=0" >> $GITHUB_ENV
        # sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
-       sudo strace -p $(pgrep Runner.Worker) -o /tmp/strace.txt &
+       sudo strace -e clone,fork,execve -f -p $(pgrep Runner.Worker) -o /tmp/strace.txt &
        echo "0"|sudo tee /proc/sys/kernel/yama/ptrace_scope
        cat /proc/sys/kernel/yama/ptrace_scope
        # sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
