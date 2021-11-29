@@ -28,7 +28,8 @@ runs:
        sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
        #sudo strace -e clone,fork,execve -f -p $(pgrep Runner.Worker) -o /tmp/strace.txt &
        #sudo strace -e trace=ptrace -o /tmp/strace.txt strace -f -s99999 -e trace=clone,execve -p $(pgrep Runner.Worker) &
-       #sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
+       sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
+       sleep 5
        # cat /tmp/anun.*.log
       shell: bash
        
