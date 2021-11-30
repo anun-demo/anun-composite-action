@@ -24,7 +24,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: echo INSIDER CONTAINER
+    - run: echo INSIDE CONTAINER && docker ps
       shell: bash
       if: ${{ job.container.id != null }}
     - run: echo NORMAL EXECUTION
