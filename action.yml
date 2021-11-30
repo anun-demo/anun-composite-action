@@ -24,14 +24,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: |
-       sudo apt-get update && sudo apt-get install curl wget strace
-       echo "ANUN_TENANT=${{ inputs.tenant-id }}" >> $GITHUB_ENV
-       echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
-       echo "ANUN_SOURCE=github" >> $GITHUB_ENV
-       echo "ANUN_HOST=${{ inputs.host }}" >> $GITHUB_ENV
-       sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
-       sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
-       sleep 5
+    - run: echo INSIDER CONTAINER
       shell: bash
+      if: ${{ job.container.id != null }}
+    - run: echo NORMAL EXECUTION
+      shell: bash
+      if: ${{ job.container.id == null }}
+   
+      
        
