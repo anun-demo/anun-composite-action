@@ -24,10 +24,25 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: echo INSIDE CONTAINER && whoami
+    - run: |
+       echo Setting up ANUN environment variables
+       echo "ANUN_TENANT=${{ inputs.tenant-id }}" >> $GITHUB_ENV
+       echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
+       echo "ANUN_SOURCE=github" >> $GITHUB_ENV
+       echo "ANUN_HOST=${{ inputs.host }}" >> $GITHUB_ENV
+    - run: |
+       echo Setting up ANUN on DOCKERIZED runner
+       echo "ANUN_TRACE_PPID_HOOK=0" >> $GITHUB_ENV
+       apt-get update && apt-get install curl wget
+       curl -s ${{ inputs.installer-url }} | bash -s "${{ inputs.package-url }}" preload
       shell: bash
       if: ${{ job.container.id != null }}
-    - run: echo NORMAL EXECUTION
+    - run: |
+       echo Setting up ANUN on HOST runner
+       sudo apt-get update && sudo apt-get install curl wget
+       sudo curl -s ${{ inputs.installer-url }} | sudo bash -s "${{ inputs.package-url }}"
+       sudo /anun-tracer/anun -p $(pgrep Runner.Worker) &
+       sleep 5
       shell: bash
       if: ${{ job.container.id == null }}
    
