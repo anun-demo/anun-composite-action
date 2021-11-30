@@ -30,6 +30,7 @@ runs:
        echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
        echo "ANUN_SOURCE=github" >> $GITHUB_ENV
        echo "ANUN_HOST=${{ inputs.host }}" >> $GITHUB_ENV
+      shell: bash
     - run: |
        echo Setting up ANUN on DOCKERIZED runner
        echo "ANUN_TRACE_PPID_HOOK=0" >> $GITHUB_ENV
