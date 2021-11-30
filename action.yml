@@ -29,7 +29,7 @@ runs:
        echo "ANUN_TENANT=${{ inputs.tenant-id }}" >> $GITHUB_ENV
        echo "ANUN_SECRET=${{ inputs.secret }}" >> $GITHUB_ENV
        echo "ANUN_SOURCE=github" >> $GITHUB_ENV
-       echo "ANUN_HOST=${{ inputs.host }}" >> $GITHUB_ENV
+       echo "ANUN_HOST_NAME=${{ inputs.host }}" >> $GITHUB_ENV
       shell: bash
     - run: |
        echo Setting up ANUN on DOCKERIZED runner
